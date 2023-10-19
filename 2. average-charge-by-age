@@ -25,3 +25,13 @@ SELECT region
 FROM hc_init
 GROUP BY region, age_group
 ORDER BY region, age_group;
+
+-- Let's try to fetch the same data but based on bigger region, north vs south
+SELECT SUBSTR (region,0,5) AS zone
+, age_group
+, SUM (total_holder) AS total_holder
+, ROUND(AVG (charges),2) AS avg_charges
+FROM hc_reg_age
+GROUP BY zone, age_group
+ORDER BY zone, age_group;
+
