@@ -1,0 +1,14 @@
+--Initial table check
+SELECT *
+FROM `portfolio-384709.Portfolio.hc_insurance` hc;
+
+-- Check missing value
+SELECT 
+       SUM (CASE WHEN age IS NULL THEN 1 ELSE 0 END) AS n_age
+      ,SUM (CASE WHEN sex IS NULL THEN 1 ELSE 0 END) AS n_sex
+      ,SUM (CASE WHEN bmi IS NULL THEN 1 ELSE 0 END) AS n_bmi
+      ,SUM (CASE WHEN children IS NULL THEN 1 ELSE 0 END) AS n_kid
+      ,SUM (CASE WHEN smoker IS NULL THEN 1 ELSE 0 END) AS n_smoker
+      ,SUM (CASE WHEN region IS NULL THEN 1 ELSE 0 END) AS n_region
+      ,SUM (CASE WHEN charges IS NULL THEN 1 ELSE 0 END) AS n_charges
+FROM `portfolio-384709.Portfolio.hc_insurance` hc;
