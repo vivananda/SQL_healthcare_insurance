@@ -1,0 +1,29 @@
+-- Minor transform
+WITH hc_init AS
+(
+  SELECT age
+  ,CASE WHEN age <20 THEN '18 - 20'
+        WHEN age BETWEEN 20 AND 29 THEN '20 - 29'
+        WHEN age BETWEEN 30 AND 39 THEN '30 - 39'
+        WHEN age BETWEEN 40 AND 49 THEN '40 - 49'
+        WHEN age BETWEEN 50 AND 59 THEN '50 - 59'
+        ELSE '> 60' END AS age_group
+  , sex
+  , ROUND(bmi,2) AS bmi
+  , children
+  , smoker
+  , region
+  , ROUND(charges,2) AS charges
+  FROM `portfolio-384709.Portfolio.hc_insurance` hc
+)
+
+SELECT age_group
+, CASE WHEN bmi < 18.5 THEN 'Underweight'
+       WHEN bmi BETWEEN 18.5 AND 24.9 THEN 'Normal'
+       WHEN bmi BETWEEN 25.0 AND 29.9 THEN 'Overweight'
+       ELSE 'Obecity' END AS weight_cat
+, COUNT(*) AS total_holder
+, ROUND (AVG(charges), 2) AS charges
+FROM hc_init
+GROUP BY age_group, weight_cat
+ORDER BY age_group, weight_cat;
